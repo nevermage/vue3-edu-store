@@ -34,7 +34,9 @@
     <div class="col-12 d-flex justify-content-end">
       <button
           @click="resetInput(); $root.formSubmit(firstName, lastName) "
-          :disabled="!fullValidation"
+          :disabled="!isFNameIsValid || !isLNameIsValid ||
+          !isCityIsValid || !isAddressIsValid ||
+           !isPhoneIsValid || !isEmailIsValid"
           type="submit" class="btn btn-success">
         Place Order
       </button>
@@ -42,17 +44,17 @@
   </form>
 </template>
 <script>
-const fvalid = (isFNameIsValid, isLNameIsValid,
-    isCityIsValid, isAddressIsValid,
-    isPhoneIsValid, isEmailIsValid) => {
-  if (isFNameIsValid && isLNameIsValid &&
-      isCityIsValid && isAddressIsValid &&
-      isPhoneIsValid && isEmailIsValid) {
-    return true;
-  } else {
-    return false;
-  }
-}
+// const fvalid = (isFNameIsValid, isLNameIsValid,
+//     isCityIsValid, isAddressIsValid,
+//     isPhoneIsValid, isEmailIsValid) => {
+//   if (isFNameIsValid && isLNameIsValid &&
+//       isCityIsValid && isAddressIsValid &&
+//       isPhoneIsValid && isEmailIsValid) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
 
 export default {
   name: "billing-form",
@@ -91,45 +93,30 @@ export default {
       if (newValue.length < 3) {
         this.isFNameIsValid = false;
       }
-      this.fullValidation = fvalid(this.isFNameIsValid, this.isLNameIsValid,
-          this.isCityIsValid, this.isAddressIsValid,
-          this.isPhoneIsValid, this.isEmailIsValid);
     },
     lastName(newValue) {
       this.isLNameIsValid = true;
       if (newValue.length < 3) {
         this.isLNameIsValid = false;
       }
-      this.fullValidation = fvalid(this.isFNameIsValid, this.isLNameIsValid,
-          this.isCityIsValid, this.isAddressIsValid,
-          this.isPhoneIsValid, this.isEmailIsValid);
     },
     city(newValue) {
       this.isCityIsValid = true;
       if (newValue.length < 3) {
         this.isCityIsValid = false;
       }
-      this.fullValidation = fvalid(this.isFNameIsValid, this.isLNameIsValid,
-          this.isCityIsValid, this.isAddressIsValid,
-          this.isPhoneIsValid, this.isEmailIsValid);
     },
     address(newValue) {
       this.isAddressIsValid = true;
       if (newValue.length < 15) {
         this.isAddressIsValid = false;
       }
-      this.fullValidation = fvalid(this.isFNameIsValid, this.isLNameIsValid,
-          this.isCityIsValid, this.isAddressIsValid,
-          this.isPhoneIsValid, this.isEmailIsValid);
     },
     email(newValue) {
       this.isEmailIsValid = true;
-      if (newValue.length < 7 && newValue.contain('@')) {
+      if (newValue.length < 7 && newValue.include('@')) {
         this.isEmailIsValid = false;
       }
-      this.fullValidation = fvalid(this.isFNameIsValid, this.isLNameIsValid,
-          this.isCityIsValid, this.isAddressIsValid,
-          this.isPhoneIsValid, this.isEmailIsValid);
     },
     phone(newValue) {
       this.isPhoneIsValid = true;
@@ -137,9 +124,6 @@ export default {
       if (isNaN(x) || newValue < 10) {
         this.isPhoneIsValid = false;
       }
-      this.fullValidation = fvalid(this.isFNameIsValid, this.isLNameIsValid,
-          this.isCityIsValid, this.isAddressIsValid,
-          this.isPhoneIsValid, this.isEmailIsValid);
     },
   },
 }
