@@ -10,7 +10,7 @@
     </thead>
     <tbody>
     <cart-product
-        v-for="product in $root.cartProducts"
+        v-for="product in cartProducts"
         :key="product.id"
         v-bind:title="product.title"
         v-bind:category="product.category"
@@ -43,5 +43,10 @@ export default
 {
   name: "cart-product-list",
   components: {cartProduct},
+  computed: {
+    cartProducts() {
+      return this.$store.getters.getCartProducts;
+    },
+  },
 }
 </script>

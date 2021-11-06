@@ -36,7 +36,7 @@
           @click="resetInput(); $root.formSubmit(firstName, lastName) "
           :disabled="!isFNameIsValid || !isLNameIsValid ||
           !isCityIsValid || !isAddressIsValid ||
-           !isPhoneIsValid || !isEmailIsValid"
+          !isPhoneIsValid || !isEmailIsValid"
           type="submit" class="btn btn-success">
         Place Order
       </button>

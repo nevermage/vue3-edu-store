@@ -5,13 +5,13 @@
         <div class="row">
         <product
             v-for="product in products"
+            :id="product.id"
             :key="product.id"
             v-bind:title="product.title"
             v-bind:category="product.category"
             :price="product.price"
             :isAv="product.isAv"
             :image="product.image"
-            @add-to-cart="$root.addToCart(product)"
         ></product>
         </div>
       </div>
@@ -25,20 +25,20 @@ import product from "./product";
 export default {
   name: "products",
   components: { product },
-  data: () => ({
-    products:
-    []
-  }),
+  // data: () => ({
+  //   products:
+  //   []
+  // }),
   methods: {
-    async fetchProducts() {
-      const response = await fetch("http://localhost:3000/products");
-      const products = await response.json();
-      this.products = products;
-      console.log(products);
-    },
+
   },
   mounted() {
-    this.fetchProducts();
+    this.$store.dispatch('fetchProducts');
+  },
+  computed: {
+    products() {
+      return this.$store.getters.getProducts;
+    }
   }
 }
 </script>

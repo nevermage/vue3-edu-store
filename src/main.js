@@ -4,6 +4,7 @@ import "./styles.css";
 import  products from "./components/products";
 import  cartButton from "./components/cartButton";
 import cartModal from "./components/cartModal";
+import store from "./store";
 
 const app = createApp({
     data: () => ({
@@ -37,6 +38,7 @@ const app = createApp({
     }
 });
 
+app.use(store);
 app.component('products', products);
 app.component('cart-button', cartButton);
 app.component('cart-modal', cartModal);

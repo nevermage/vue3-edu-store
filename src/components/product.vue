@@ -18,7 +18,7 @@
           <strong v-else class="text-danger">Sold out</strong>
         </p>
         <button
-            @click="$emit('add-to-cart')"
+            @click="addToCart()"
             :disabled="!isAv"
             class="btn btn-secondary w-100 shadow-none" >
           Add to cart
@@ -32,6 +32,7 @@
 export default {
   name: "product",
   props: {
+    key: Number,
     title: {
       type: String,
       isRequired: true,
@@ -41,6 +42,18 @@ export default {
     price: Number,
     image: String,
     isAv: Boolean,
+  },
+  methods: {
+    addToCart() {
+      this.$store.commit('addToCart', {
+        id: this.id,
+        title: this.title,
+        category: this.category,
+        price: this.price,
+        image: this.image,
+        isAv: this.isAv,
+      });
+    }
   },
 }
 </script>
